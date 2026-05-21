@@ -1,66 +1,69 @@
-import mysql.connector
+import sqlite3
 import pandas as pd
 import numpy as np
 
+# ================= DATABASE =================
+def get_db():
+    conn = sqlite3.connect("expense_tracker.db")
+    return conn
+
+# ================= PREDICTION =================
 def predict_expense():
 
     try:
-        db = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="Mil!1808",
-            database="expense_tracker"
-        )
 
-        cursor = db.cursor(dictionary=True)
+        db = get_db()
 
-        cursor.execute("""
-            SELECT amount, date 
+        query = """
+            SELECT amount, date
             FROM expenses
-        """)
+        """
 
-        data = cursor.fetchall()
+        df = pd.read_sql_query(query, db)
 
-        if not data:
+        db.close()
+
+        # No data
+        if df.empty:
             return 0
 
-        df = pd.DataFrame(data)
-
-        # ensure datetime format
+        # Ensure datetime format
         df["date"] = pd.to_datetime(df["date"])
 
-        # create month column
+        # Create month column
         df["month"] = df["date"].dt.to_period("M")
 
-        # group by month
+        # Group monthly expenses
         monthly = df.groupby("month")["amount"].sum().reset_index()
 
-        # convert month to numeric index
+        # Create numeric month index
         monthly["month_index"] = np.arange(len(monthly))
 
-        # if only 1 month data → fallback
+        # If only one month data
         if len(monthly) == 1:
             return float(monthly["amount"].iloc[0])
 
-        # linear trend (simple ML logic)
+        # Linear trend prediction
         x = monthly["month_index"]
         y = monthly["amount"]
 
-        # slope calculation
+        # Slope calculation
         slope = np.polyfit(x, y, 1)[0]
 
-        # last value
+        # Last month value
         last_value = y.iloc[-1]
 
-        # predict next month
+        # Predict next month
         prediction = last_value + slope
 
-        # safety check (no negative prediction)
+        # Prevent negative prediction
         if prediction < 0:
             prediction = y.mean()
 
-        return float(prediction)
+        return round(float(prediction), 2)
 
     except Exception as e:
+
         print("ML ERROR:", e)
+
         return 0
