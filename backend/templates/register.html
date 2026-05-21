@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Register</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<nav>
+    <h2>💰 Expense Tracker</h2>
+</nav>
+
+<div class="container"
+     style="display:flex; justify-content:center; align-items:center; height:80vh;">
+
+    <div class="card" style="width:320px; text-align:center;">
+
+        <h2>Create Account 🚀</h2>
+
+        <input id="regUser" type="text" placeholder="Username">
+
+        <input id="regEmail" type="email" placeholder="Email">
+
+        <input id="regPass" type="password" placeholder="Password">
+
+        <button onclick="register()" style="width:100%;">
+            Register
+        </button>
+
+        <p style="margin-top:10px;">
+            Already have an account?
+
+            <a href="/login" style="color:#1E3A8A;">
+                Login
+            </a>
+        </p>
+
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        document.getElementById("regUser").value = "";
+        document.getElementById("regEmail").value = "";
+        document.getElementById("regPass").value = "";
+
+    });
+</script>
+
+</body>
+</html>

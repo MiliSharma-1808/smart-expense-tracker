@@ -1,0 +1,174 @@
+<!-- analytics.html -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Analytics</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<nav>
+
+    <h2>📊 Analytics</h2>
+
+    <ul>
+
+        <li><a href="/dashboard">Dashboard</a></li>
+
+        <li><a href="/add_expense_page">Add Expense</a></li>
+
+        <li><a href="/history">History</a></li>
+
+        <li><a href="/analytics">Analytics</a></li>
+
+        <li><a href="/budget">Budget</a></li>
+
+        <li>
+            <a href="#" onclick="logout()">
+                Logout
+            </a>
+        </li>
+
+    </ul>
+
+</nav>
+
+<div class="container">
+
+    <h2>Analytics Dashboard</h2>
+
+    <!-- SUMMARY -->
+    <div class="dashboard">
+
+        <div class="card">
+
+            <h3>Total Expenses</h3>
+
+            <p id="totalSummary">₹0</p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>This Month</h3>
+
+            <p id="monthlySummary">₹0</p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Top Category</h3>
+
+            <p id="topCategory">-</p>
+
+        </div>
+
+    </div>
+
+    <!-- INSIGHTS -->
+    <div class="chart-card">
+
+        <h3>🧠 Smart Insights</h3>
+
+        <p id="insightText">
+            Loading insights...
+        </p>
+
+    </div>
+
+    <!-- PREDICTION -->
+    <div class="chart-card">
+
+        <h3>🤖 Expense Prediction</h3>
+
+        <button
+            type="button"
+            onclick="getPrediction()"
+        >
+            Get Smart Prediction
+        </button>
+
+        <p id="predictionResult">
+            Click button to see prediction
+        </p>
+
+    </div>
+
+    <!-- PIE CHART -->
+    <div class="chart-card">
+
+        <h3 style="text-align:center;">
+            Category Breakdown
+        </h3>
+
+        <div style="height:300px;">
+
+           <div style="height:300px;">
+    <canvas id="pieChart"></canvas>
+</div>
+
+        </div>
+
+    </div>
+
+    <!-- BAR CHART -->
+    <div class="chart-card">
+
+        <h3 style="text-align:center;">
+            Monthly Spending
+        </h3>
+
+        <div style="height:300px;">
+
+           <div style="height:300px;">
+    <canvas id="barChart"></canvas>
+</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- MAIN SCRIPT -->
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", async function () {
+
+    if (typeof loadExpenses === "function") {
+
+        await loadExpenses();
+
+    }
+
+    if (typeof loadAnalytics === "function") {
+
+        loadAnalytics();
+
+    }
+
+    if (typeof generateInsights === "function") {
+
+        generateInsights();
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>

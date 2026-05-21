@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>History</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<nav>
+    <h2>💰 Expense Tracker</h2>
+
+    <ul>
+        <li><a href="/dashboard">Dashboard</a></li>
+
+        <li><a href="/add_expense_page">Add Expense</a></li>
+
+        <li><a href="/history">History</a></li>
+
+        <li><a href="/analytics">Analytics</a></li>
+
+        <li><a href="/budget">Budget</a></li>
+
+        <li><a href="#" onclick="logout()">Logout</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+
+    <h2>Expense History</h2>
+
+    <!-- SEARCH -->
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="Search expenses..."
+        onkeyup="searchExpenses()"
+    >
+
+    <!-- FILTERS -->
+    <div style="margin: 15px 0;">
+
+        <select id="filterCategory" onchange="filterExpenses()">
+
+            <option value="">All Categories</option>
+
+            <option>Food 🍔</option>
+
+            <option>Travel 🚗</option>
+
+            <option>Shopping 🛍️</option>
+
+            <option>Bills 💡</option>
+
+            <option>Health 🏥</option>
+
+            <option>Entertainment 🎬</option>
+
+        </select>
+
+        <input
+            type="date"
+            id="filterDate"
+            onchange="filterExpenses()"
+        >
+
+    </div>
+
+    <!-- LIST -->
+    <ul id="expenseList"></ul>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        loadExpenses();
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Add Expense</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<nav>
+
+    <h2>💰 Expense Tracker</h2>
+
+    <ul>
+
+        <li>
+            <a href="/dashboard">
+                Dashboard
+            </a>
+        </li>
+
+        <li>
+            <a href="/add_expense_page">
+                Add Expense
+            </a>
+        </li>
+
+        <li>
+            <a href="/history">
+                History
+            </a>
+        </li>
+
+        <li>
+            <a href="/analytics">
+                Analytics
+            </a>
+        </li>
+
+        <li>
+            <a href="/budget">
+                Budget
+            </a>
+        </li>
+
+        <li>
+            <a href="#" onclick="logout()">
+                Logout
+            </a>
+        </li>
+
+    </ul>
+
+</nav>
+
+<div class="container">
+
+    <h2>Add Expense</h2>
+
+    <!-- CATEGORY -->
+    <select
+        id="category"
+        onchange="handleCategoryChange()"
+    >
+
+        <option value="">
+            Select Category
+        </option>
+
+        <option>Food 🍔</option>
+
+        <option>Travel 🚗</option>
+
+        <option>Shopping 🛍️</option>
+
+        <option>Bills 💡</option>
+
+        <option>Health 🏥</option>
+
+        <option>Entertainment 🎬</option>
+
+        <option value="Others">
+            Others ➕
+        </option>
+
+    </select>
+
+    <!-- CUSTOM CATEGORY -->
+    <input
+        id="customCategory"
+        type="text"
+        placeholder="Enter custom category"
+        style="display:none;"
+    >
+
+    <!-- AMOUNT -->
+    <input
+        id="amount"
+        type="number"
+        placeholder="Amount"
+    >
+
+    <!-- DATE -->
+    <input
+        id="date"
+        type="date"
+    >
+
+    <!-- DESCRIPTION -->
+    <input
+        id="description"
+        type="text"
+        placeholder="Description (optional)"
+    >
+
+    <!-- BUTTON -->
+    <button
+        type="button"
+        onclick="addExpense()"
+    >
+        Add Expense
+    </button>
+
+</div>
+
+<!-- Main JS -->
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        // auto set today's date
+        setTodayDate();
+
+    });
+
+</script>
+
+</body>
+</html>

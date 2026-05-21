@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Budget</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<nav>
+
+    <h2>💰 Expense Tracker</h2>
+
+    <ul>
+
+        <li>
+            <a href="/dashboard">
+                Dashboard
+            </a>
+        </li>
+
+        <li>
+            <a href="/add_expense_page">
+                Add Expense
+            </a>
+        </li>
+
+        <li>
+            <a href="/history">
+                History
+            </a>
+        </li>
+
+        <li>
+            <a href="/analytics">
+                Analytics
+            </a>
+        </li>
+
+        <li>
+            <a href="/budget">
+                Budget
+            </a>
+        </li>
+
+        <li>
+            <a href="#" onclick="logout()">
+                Logout
+            </a>
+        </li>
+
+    </ul>
+
+</nav>
+
+<div class="container">
+
+    <h2>Set Budget</h2>
+
+    <!-- INPUT -->
+    <input
+        id="budgetInput"
+        type="number"
+        placeholder="Enter your budget"
+    >
+
+    <button
+        type="button"
+        onclick="setBudget()"
+    >
+        Set Budget
+    </button>
+
+    <!-- BUDGET CARDS -->
+    <div class="budget-cards">
+
+        <!-- CURRENT BUDGET -->
+        <div class="card">
+
+            <h3>Current Budget</h3>
+
+            <p id="currentBudget">₹0</p>
+
+        </div>
+
+        <!-- STATUS -->
+        <div class="card">
+
+            <h3>Budget Status</h3>
+
+            <p id="budgetStatus">Not Set</p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- MAIN SCRIPT -->
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", async function () {
+
+    // Load saved budget
+    let b = localStorage.getItem("budget");
+
+    let budgetEl =
+        document.getElementById("currentBudget");
+
+    if (b && budgetEl) {
+
+        budgetEl.innerText = "₹ " + b;
+
+    } else if (budgetEl) {
+
+        budgetEl.innerText = "₹0";
+    }
+
+    // Load expenses for budget comparison
+    if (typeof loadExpenses === "function") {
+
+        await loadExpenses();
+
+    }
+
+    // Update dashboard budget status
+    if (typeof updateDashboard === "function") {
+
+        updateDashboard();
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>

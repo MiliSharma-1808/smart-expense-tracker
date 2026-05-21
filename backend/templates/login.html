@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Login</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<nav>
+
+    <h2>💰 Expense Tracker</h2>
+
+</nav>
+
+<div class="container"
+     style="display:flex; justify-content:center; align-items:center; height:80vh;">
+
+    <div class="card"
+         style="width:320px; text-align:center;">
+
+        <h2>Welcome Back 👋</h2>
+
+        <input
+            id="loginEmail"
+            type="email"
+            placeholder="Enter Email"
+        >
+
+        <input
+            id="loginPass"
+            type="password"
+            placeholder="Enter Password"
+        >
+
+        <button
+            type="button"
+            onclick="login()"
+            style="width:100%;"
+        >
+            Login
+        </button>
+
+        <p style="margin-top:10px;">
+
+            New here?
+
+            <a href="/register"
+               style="color:#1E3A8A;">
+
+                Create account
+
+            </a>
+
+        </p>
+
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+<script>
+
+    // clear fields
+    document.addEventListener("DOMContentLoaded", function () {
+
+        document.getElementById("loginEmail").value = "";
+
+        document.getElementById("loginPass").value = "";
+
+    });
+
+    // if already logged in
+    let user = localStorage.getItem("currentUser");
+
+    if (user) {
+
+        window.location.href = "/dashboard";
+    }
+
+</script>
+
+</body>
+</html>

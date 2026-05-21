@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<nav>
+
+    <h2 id="welcomeMsg">Welcome 👋</h2>
+
+    <ul>
+
+        <li>
+            <a href="/dashboard">
+                Dashboard
+            </a>
+        </li>
+
+        <li>
+            <a href="/add_expense_page">
+                Add Expense
+            </a>
+        </li>
+
+        <li>
+            <a href="/history">
+                History
+            </a>
+        </li>
+
+        <li>
+            <a href="/analytics">
+                Analytics
+            </a>
+        </li>
+
+        <li>
+            <a href="/budget">
+                Budget
+            </a>
+        </li>
+
+        <li>
+            <a href="#" onclick="logout()">
+                Logout
+            </a>
+        </li>
+
+    </ul>
+
+</nav>
+
+<div class="container">
+
+    <h2>Dashboard</h2>
+
+    <div class="dashboard">
+
+        <!-- TOTAL EXPENSE -->
+        <div class="card">
+
+            <h3>💰 Total Expenses</h3>
+
+            <p id="totalExpense">₹0</p>
+
+        </div>
+
+        <!-- BUDGET STATUS -->
+        <div class="card">
+
+            <h3>📊 Budget Status</h3>
+
+            <p id="budgetStatus">Not Set</p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Main JS -->
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+<script>
+
+    // show username
+    document.addEventListener("DOMContentLoaded", function () {
+
+        let user = JSON.parse(
+            localStorage.getItem("currentUser")
+        );
+
+        let welcome =
+            document.getElementById("welcomeMsg");
+
+        if (user && welcome) {
+
+            welcome.innerText =
+                "Welcome, " + user.user + " 👋";
+        }
+
+        // load dashboard data
+        loadExpenses();
+
+    });
+
+</script>
+
+</body>
+</html>
